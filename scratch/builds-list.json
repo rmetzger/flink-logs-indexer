@@ -1,0 +1,280 @@
+{
+  "count": 1000,
+  "value": [
+    {
+      "_links": {
+        "self": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/Builds/4108"
+        },
+        "web": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_build/results?buildId=4108"
+        },
+        "sourceVersionDisplayUri": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4108/sources"
+        },
+        "timeline": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4108/Timeline"
+        },
+        "badge": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/status/1"
+        }
+      },
+      "properties": {},
+      "tags": [],
+      "validationResults": [],
+      "plans": [
+        {
+          "planId": "f37dfb2a-148a-498a-b681-46f4dbc48a41"
+        }
+      ],
+      "triggerInfo": {
+        "ci.triggerRepository": "flink-ci/flink-mirror"
+      },
+      "id": 4108,
+      "buildNumber": "20200629.6",
+      "status": "inProgress",
+      "queueTime": "2020-06-29T08:45:26.2915276Z",
+      "startTime": "2020-06-29T08:45:36.248072Z",
+      "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/Builds/4108",
+      "definition": {
+        "drafts": [],
+        "id": 1,
+        "name": "flink-ci.flink-master-mirror",
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/Definitions/1?revision=9",
+        "uri": "vstfs:///Build/Definition/1",
+        "path": "\\",
+        "type": "build",
+        "queueStatus": "enabled",
+        "revision": 9,
+        "project": {
+          "id": "98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+          "name": "apache-flink",
+          "url": "https://dev.azure.com/apache-flink/_apis/projects/98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+          "state": "wellFormed",
+          "revision": 11,
+          "visibility": "public",
+          "lastUpdateTime": "2020-04-20T14:52:47.747Z"
+        }
+      },
+      "buildNumberRevision": 6,
+      "project": {
+        "id": "98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+        "name": "apache-flink",
+        "url": "https://dev.azure.com/apache-flink/_apis/projects/98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+        "state": "wellFormed",
+        "revision": 11,
+        "visibility": "public",
+        "lastUpdateTime": "2020-04-20T14:52:47.747Z"
+      },
+      "uri": "vstfs:///Build/Build/4108",
+      "sourceBranch": "refs/heads/master",
+      "sourceVersion": "58c2047133d61073cb3e75fa092d102d3c7b4414",
+      "queue": {
+        "id": 8,
+        "name": "Hosted Ubuntu 1604",
+        "pool": {
+          "id": 8,
+          "name": "Hosted Ubuntu 1604",
+          "isHosted": true
+        }
+      },
+      "priority": "normal",
+      "reason": "individualCI",
+      "requestedFor": {
+        "displayName": "GitHub",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/A3a41ea69-dc5e-4cef-86a8-199700d0ab73/_apis/Identities/03117534-09ca-40e9-b749-d0443b6bf676",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl"
+          }
+        },
+        "id": "03117534-09ca-40e9-b749-d0443b6bf676",
+        "uniqueName": "GitHub App\\98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+        "imageUrl": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl",
+        "descriptor": "svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl"
+      },
+      "requestedBy": {
+        "displayName": "GitHub",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/A3a41ea69-dc5e-4cef-86a8-199700d0ab73/_apis/Identities/03117534-09ca-40e9-b749-d0443b6bf676",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl"
+          }
+        },
+        "id": "03117534-09ca-40e9-b749-d0443b6bf676",
+        "uniqueName": "GitHub App\\98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+        "imageUrl": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl",
+        "descriptor": "svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl"
+      },
+      "lastChangedDate": "2020-06-29T08:45:41.753Z",
+      "lastChangedBy": {
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/A3a41ea69-dc5e-4cef-86a8-199700d0ab73/_apis/Identities/00000002-0000-8888-8000-000000000000",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA"
+          }
+        },
+        "id": "00000002-0000-8888-8000-000000000000",
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "imageUrl": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA"
+      },
+      "orchestrationPlan": {
+        "planId": "f37dfb2a-148a-498a-b681-46f4dbc48a41"
+      },
+      "logs": {
+        "id": 0,
+        "type": "Container",
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4108/logs"
+      },
+      "repository": {
+        "id": "flink-ci/flink-mirror",
+        "type": "GitHub",
+        "clean": null,
+        "checkoutSubmodules": false
+      },
+      "keepForever": false,
+      "retainedByRelease": false,
+      "triggeredByBuild": null
+    },
+    {
+      "_links": {
+        "self": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/Builds/4100"
+        },
+        "web": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_build/results?buildId=4100"
+        },
+        "sourceVersionDisplayUri": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4100/sources"
+        },
+        "timeline": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4100/Timeline"
+        },
+        "badge": {
+          "href": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/status/1"
+        }
+      },
+      "properties": {},
+      "tags": [],
+      "validationResults": [],
+      "plans": [
+        {
+          "planId": "b7f2518d-4339-4ffa-a58a-91a35e63f0f4"
+        }
+      ],
+      "triggerInfo": {
+        "ci.triggerRepository": "flink-ci/flink-mirror"
+      },
+      "id": 4100,
+      "buildNumber": "20200629.3",
+      "status": "inProgress",
+      "queueTime": "2020-06-29T05:55:35.2869309Z",
+      "startTime": "2020-06-29T05:55:43.092833Z",
+      "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/Builds/4100",
+      "definition": {
+        "drafts": [],
+        "id": 1,
+        "name": "flink-ci.flink-master-mirror",
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/Definitions/1?revision=9",
+        "uri": "vstfs:///Build/Definition/1",
+        "path": "\\",
+        "type": "build",
+        "queueStatus": "enabled",
+        "revision": 9,
+        "project": {
+          "id": "98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+          "name": "apache-flink",
+          "url": "https://dev.azure.com/apache-flink/_apis/projects/98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+          "state": "wellFormed",
+          "revision": 11,
+          "visibility": "public",
+          "lastUpdateTime": "2020-04-20T14:52:47.747Z"
+        }
+      },
+      "buildNumberRevision": 3,
+      "project": {
+        "id": "98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+        "name": "apache-flink",
+        "url": "https://dev.azure.com/apache-flink/_apis/projects/98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+        "state": "wellFormed",
+        "revision": 11,
+        "visibility": "public",
+        "lastUpdateTime": "2020-04-20T14:52:47.747Z"
+      },
+      "uri": "vstfs:///Build/Build/4100",
+      "sourceBranch": "refs/heads/master",
+      "sourceVersion": "41daafd074f6df6529ef4e830dde67295c29a8fa",
+      "queue": {
+        "id": 8,
+        "name": "Hosted Ubuntu 1604",
+        "pool": {
+          "id": 8,
+          "name": "Hosted Ubuntu 1604",
+          "isHosted": true
+        }
+      },
+      "priority": "normal",
+      "reason": "individualCI",
+      "requestedFor": {
+        "displayName": "GitHub",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/A3a41ea69-dc5e-4cef-86a8-199700d0ab73/_apis/Identities/03117534-09ca-40e9-b749-d0443b6bf676",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl"
+          }
+        },
+        "id": "03117534-09ca-40e9-b749-d0443b6bf676",
+        "uniqueName": "GitHub App\\98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+        "imageUrl": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl",
+        "descriptor": "svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl"
+      },
+      "requestedBy": {
+        "displayName": "GitHub",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/A3a41ea69-dc5e-4cef-86a8-199700d0ab73/_apis/Identities/03117534-09ca-40e9-b749-d0443b6bf676",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl"
+          }
+        },
+        "id": "03117534-09ca-40e9-b749-d0443b6bf676",
+        "uniqueName": "GitHub App\\98463496-1af2-4620-8eab-a2ecc1a2e6fe",
+        "imageUrl": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl",
+        "descriptor": "svc.M2E0MWVhNjktZGM1ZS00Y2VmLTg2YTgtMTk5NzAwZDBhYjczOkdpdEh1YiBBcHA6OTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZl"
+      },
+      "lastChangedDate": "2020-06-29T06:33:29.377Z",
+      "lastChangedBy": {
+        "displayName": "Microsoft.VisualStudio.Services.TFS",
+        "url": "https://spsprodweu4.vssps.visualstudio.com/A3a41ea69-dc5e-4cef-86a8-199700d0ab73/_apis/Identities/00000002-0000-8888-8000-000000000000",
+        "_links": {
+          "avatar": {
+            "href": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA"
+          }
+        },
+        "id": "00000002-0000-8888-8000-000000000000",
+        "uniqueName": "00000002-0000-8888-8000-000000000000@2c895908-04e0-4952-89fd-54b0046d6288",
+        "imageUrl": "https://dev.azure.com/apache-flink/_apis/GraphProfile/MemberAvatars/s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA",
+        "descriptor": "s2s.MDAwMDAwMDItMDAwMC04ODg4LTgwMDAtMDAwMDAwMDAwMDAwQDJjODk1OTA4LTA0ZTAtNDk1Mi04OWZkLTU0YjAwNDZkNjI4OA"
+      },
+      "orchestrationPlan": {
+        "planId": "b7f2518d-4339-4ffa-a58a-91a35e63f0f4"
+      },
+      "logs": {
+        "id": 0,
+        "type": "Container",
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4100/logs"
+      },
+      "repository": {
+        "id": "flink-ci/flink-mirror",
+        "type": "GitHub",
+        "clean": null,
+        "checkoutSubmodules": false
+      },
+      "keepForever": false,
+      "retainedByRelease": false,
+      "triggeredByBuild": null
+    },
+  ....
+  ]
+}
