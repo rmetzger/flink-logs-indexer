@@ -1,0 +1,155 @@
+{
+  "count": 10,
+  "value": [
+    {
+      "id": 44238,
+      "name": "FlinkCompileArtifact-ci",
+      "source": "52b61abe-a3cc-5bde-cc35-1bbe89bb7df5",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "15C7DC87413B5B589E4571C6F616B1B00068184B5DB9E8649DA6432811AC8AF402",
+        "properties": {
+          "RootId": "F46CD8820AEF1712334D947C022601DE7F7D25152E31EC6B439664BA54756AF902",
+          "artifactsize": "1170593453"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=FlinkCompileArtifact-ci&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvRmxpbmtDb21waWxlQXJ0aWZhY3QtY2k1/content?format=zip"
+      }
+    },
+    {
+      "id": 44243,
+      "name": "logs-ci-libraries-1593420745",
+      "source": "b2f046ab-ae17-5406-acdc-240be7e870e4",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "CDE4C0E3B292811C0593D69443C947C6A0982D514AEDD616988AFED23122953001",
+        "properties": {
+          "RootId": "C477B79E0C8B0A4A3757FB4E04E74543EB21F374A06F7E6FA6B4694FF3D702F002",
+          "artifactsize": "4139131"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=logs-ci-libraries-1593420745&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvbG9ncy1jaS1saWJyYXJpZXMtMTU5MzQyMDc0NQ2/content?format=zip"
+      }
+    },
+    {
+      "id": 44250,
+      "name": "logs-ci-tests-1593420777",
+      "source": "5c8e7682-d68f-54d1-16a2-a09310218a49",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "84A7CA05F17AE063E1E34E8F9C26587680138DF96043003E59EBE0BE0459DA5801",
+        "properties": {
+          "RootId": "A0654733248171FC5A36B5347F4F53DD5470A8B811FF8AAA266343877F47300F02",
+          "artifactsize": "7148313"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=logs-ci-tests-1593420777&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvbG9ncy1jaS10ZXN0cy0xNTkzNDIwNzc30/content?format=zip"
+      }
+    },
+    {
+      "id": 44253,
+      "name": "logs-ci-blinkplanner-1593420732",
+      "source": "e25d5e7e-2a9c-5589-4940-0b638d75a414",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "4FBE502612BA985923BD0E4799C223E64DC81734C210C99476948C2C95A5EFA501",
+        "properties": {
+          "RootId": "146FB9C2F8EE07D805616A44DDEC061068D28E8994C371B3A26D2DDE740EC0DA02",
+          "artifactsize": "23635352"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=logs-ci-blinkplanner-1593420732&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvbG9ncy1jaS1ibGlua3BsYW5uZXItMTU5MzQyMDczMg2/content?format=zip"
+      }
+    },
+    {
+      "id": 44254,
+      "name": "logs-ci-core-1593420665",
+      "source": "0da23115-68bb-5dcd-192c-bd4c8adebde1",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "B3AAE8D22E8C89915E7B8EBB4C55F68E78755A49C0A4C257C472F433D45C7B1301",
+        "properties": {
+          "RootId": "CA1C5C7BF0760744ECE94C57B0F8D30FEEF7136DC9A658140465B19982BC715902",
+          "artifactsize": "7946699"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=logs-ci-core-1593420665&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvbG9ncy1jaS1jb3JlLTE1OTM0MjA2NjU1/content?format=zip"
+      }
+    },
+    {
+      "id": 44256,
+      "name": "logs-ci-kafkagelly-1593420667",
+      "source": "c5f0071e-1851-543e-9a45-9ac140befc32",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "D3F5971D30F062F85E29A1AE8ED70554EED84E07D57E67993A75CC77C614211801",
+        "properties": {
+          "RootId": "FEB45741598928CA00010AE7108797D1F5EC76650BFF056195EDBD9FE014D12902",
+          "artifactsize": "9937048"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=logs-ci-kafkagelly-1593420667&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvbG9ncy1jaS1rYWZrYWdlbGx5LTE1OTM0MjA2Njc1/content?format=zip"
+      }
+    },
+    {
+      "id": 44262,
+      "name": "logs-ci-misc-1593420730",
+      "source": "fc5181b0-e452-5c8f-68de-1097947f6483",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "662CF15491DE689E6ABDF3272750E2F6F2395F7FE6B206FC65B4B09C821070FA01",
+        "properties": {
+          "RootId": "EEA29A6407A419DBBE741C62DF69A7B148B8359AA20B8B46C29EF082FB89D9E802",
+          "artifactsize": "2058531"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=logs-ci-misc-1593420730&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvbG9ncy1jaS1taXNjLTE1OTM0MjA3MzA1/content?format=zip"
+      }
+    },
+    {
+      "id": 44266,
+      "name": "logs-ci-connectors-1593420763",
+      "source": "d44f43ce-542c-597d-bf94-b0718c71e5e8",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "98131F2790E5CE5F5B8DD542BD1894EF0FB93BD2C18D09AD77A1DA3F8CA302B201",
+        "properties": {
+          "RootId": "92F957176D5C029D84A71E453009BDB8C990BEB91AAA467E8759F6FD0F56931102",
+          "artifactsize": "7553128"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=logs-ci-connectors-1593420763&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvbG9ncy1jaS1jb25uZWN0b3JzLTE1OTM0MjA3NjM1/content?format=zip"
+      }
+    },
+    {
+      "id": 44272,
+      "name": "logs-ci-python-1593420701",
+      "source": "9cada3cb-c1d3-5621-16da-0f718fb86602",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "01D22AD5989EF456CF50EA9E505BF392D5C2920A46792D5688006BCC865D595701",
+        "properties": {
+          "RootId": "7FE5DCF293706D2E344661D5EBDB2C8740C529B6E57E61690D2F82E63FD1838202",
+          "artifactsize": "125"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=logs-ci-python-1593420701&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvbG9ncy1jaS1weXRob24tMTU5MzQyMDcwMQ2/content?format=zip"
+      }
+    },
+    {
+      "id": 44288,
+      "name": "logs-ci-e2e",
+      "source": "c88eea3b-64a0-564d-0031-9fdcd7b8abee",
+      "resource": {
+        "type": "PipelineArtifact",
+        "data": "61A9B08597F8E272F76218C213A417EEE1E6BF74C0D393A06A2DD1815142788601",
+        "properties": {
+          "RootId": "07D1C8E2796665B4DB21F7929208607A7D49AA5B3FD0D2AD11B9824FE846E7F202",
+          "artifactsize": "14923"
+        },
+        "url": "https://dev.azure.com/apache-flink/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/build/builds/4106/artifacts?artifactName=logs-ci-e2e&api-version=5.1",
+        "downloadUrl": "https://artprodsu6weu.artifacts.visualstudio.com/A2d3c0ac8-fecf-45be-8407-6d87302181a9/98463496-1af2-4620-8eab-a2ecc1a2e6fe/_apis/artifact/cGlwZWxpbmVhcnRpZmFjdDovL2FwYWNoZS1mbGluay9wcm9qZWN0SWQvOTg0NjM0OTYtMWFmMi00NjIwLThlYWItYTJlY2MxYTJlNmZlL2J1aWxkSWQvNDEwNi9hcnRpZmFjdE5hbWUvbG9ncy1jaS1lMmU1/content?format=zip"
+      }
+    }
+  ]
+}
