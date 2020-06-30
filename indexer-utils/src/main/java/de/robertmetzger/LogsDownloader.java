@@ -131,7 +131,6 @@ public class LogsDownloader {
         List<Integer> buildIDs = getBuildIDs();
         LOG.info("ids = " + buildIDs);
 
-        System.exit(0);
         LOG.info("Collecting download links for builds");
         List<Download> downloadLinks = buildIDs
                 .stream()
@@ -155,7 +154,7 @@ public class LogsDownloader {
             });
         }
         executorService.shutdown();
-        executorService.awaitTermination(10, TimeUnit.MINUTES);
+        executorService.awaitTermination(10, TimeUnit.HOURS);
     }
 
 

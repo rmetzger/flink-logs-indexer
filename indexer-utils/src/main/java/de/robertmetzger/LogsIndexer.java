@@ -56,7 +56,7 @@ public class LogsIndexer {
         this.parameters = parameters;
 
        RestHighLevelClient client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http")));
+                RestClient.builder(new HttpHost(parameters.get("es.host", "localhost"), parameters.getInt("es.port", 9200), "http")));
 
         BulkProcessor.Listener listener = new BulkProcessor.Listener() {
             @Override
@@ -81,9 +81,9 @@ public class LogsIndexer {
                 (request, bulkListener) ->
                         client.bulkAsync(request, RequestOptions.DEFAULT, bulkListener),
                 listener);
-        builder.setBulkActions(5000);
+        builder.setBulkActions(parameters.getInt("es.bulkactions", 5000));
         builder.setBulkSize(new ByteSizeValue(10L, ByteSizeUnit.MB));
-        builder.setConcurrentRequests(4);
+        builder.setConcurrentRequests(parameters.getInt("es.concurrent", 5));
         builder.setFlushInterval(TimeValue.timeValueSeconds(10L));
         builder.setBackoffPolicy(BackoffPolicy
                 .constantBackoff(TimeValue.timeValueSeconds(1L), 3));
