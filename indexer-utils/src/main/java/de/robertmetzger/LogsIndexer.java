@@ -1,5 +1,10 @@
 package de.robertmetzger;
 
+import org.apache.flink.annotation.VisibleForTesting;
+import org.apache.flink.api.java.utils.ParameterTool;
+
+import org.apache.flink.shaded.guava18.com.google.common.io.Files;
+
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
@@ -32,6 +37,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -43,8 +49,10 @@ import java.util.zip.ZipInputStream;
 public class LogsIndexer {
     private final static Logger LOG = LoggerFactory.getLogger(LogsIndexer.class);
     private final BulkProcessor bulkProcessor;
+    private final ParameterTool parameters;
 
-    public LogsIndexer() {
+    public LogsIndexer(ParameterTool parameters) {
+        this.parameters = parameters;
 
        RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(new HttpHost("localhost", 9200, "http")));
@@ -83,7 +91,7 @@ public class LogsIndexer {
     }
 
     private void run() throws IOException {
-        File dataDir = new File(".");
+        File dataDir = new File(parameters.get("data-dir", "data/"));
         // get all log files in the data dir
         File[] logFiles = dataDir.listFiles((dir, name) -> name.contains("logs"));
         // process them one after another
@@ -116,6 +124,8 @@ public class LogsIndexer {
                     }
                 }
             }
+            // move to "done" directory
+            Files.move(logFile, new File(parameters.get("done-data-dir", "done-data/") + logFile.getName()));
         }
         LOG.info("Done processing the files ...");
         bulkProcessor.close();
@@ -125,7 +135,8 @@ public class LogsIndexer {
      * Parse log file
      * @param logStream
      */
-    private void parseLogfile(InputStream logStream, String buildname, String innerArchiveName) throws IOException {
+    @VisibleForTesting
+    public void parseLogfile(InputStream logStream, String buildname, String innerArchiveName) throws IOException {
         Instant tsInst;
         // this parses the "old"? format, such as: "logs-ci-blinkplanner/20200629.4.tar.gz" or "logs-ci-e2e/20200629.4.tgz"
         if(innerArchiveName.contains("/20")) { // this will stop working in the year 2100+
@@ -158,26 +169,56 @@ public class LogsIndexer {
         SimpleDateFormat timePattern = new SimpleDateFormat("HH:mm:ss,SSS");
 
 
-        // TODO don't split on newline to keep exceptions
-        BufferedReader br = new BufferedReader(new InputStreamReader(logStream));
-        String line;
-        while ((line = br.readLine()) != null) {
-            Matcher timeMatcher = logTimestampPattern.matcher(line);
-            if(timeMatcher.find()) {
-                Instant time = null;
-                String timeString = timeMatcher.group(1);
-                try {
-                    time = timePattern.parse(timeString).toInstant();
-                    logEventTime = baseTsBeginningOfDay.plusMillis(time.toEpochMilli());
-                } catch (ParseException e) {
-                    LOG.debug("Error parsing date from log line '{}' ", line, e);
+        // we split the input stream on "\n[0-9]" (the number is included), so that we catch all log lines + exceptions.
+        InputStreamReader is = new InputStreamReader(logStream);
+        StringBuilder sb = new StringBuilder();
+        int next;
+        String log = null;
+        while(true) {
+            next = is.read();
+            // search for newline + number
+            if(next == '\n') {
+                next = is.read();
+                if(next >= 48 && next <= 57) { // is number
+                    // we know that a log statement is finished
+                    log = sb.toString();
+                    sb.setLength(0);
+                    sb.append((char)next); // the number for the beginning of the next line
+                } else {
+                    sb.append('\n');
                 }
+            } else if(next == -1) {
+                // end of stream
+                log = sb.toString();
+                sb.setLength(0);
+            } else {
+                // regular case, just append to buffer
+                sb.append((char)next);
             }
-            emitLogToElastic(line, buildname, logEventTime.toEpochMilli());
+            if(log != null) {
+                Matcher timeMatcher = logTimestampPattern.matcher(log);
+                if(timeMatcher.find()) {
+                    Instant time = null;
+                    String timeString = timeMatcher.group(1);
+                    try {
+                        time = timePattern.parse(timeString).toInstant();
+                        logEventTime = baseTsBeginningOfDay.plusMillis(time.toEpochMilli());
+                    } catch (ParseException e) {
+                        LOG.debug("Error parsing date from log line '{}' ", log, e);
+                    }
+                }
+
+                LOG.info("LOG = "  + log);
+                emitLogToElastic(log, buildname, logEventTime.toEpochMilli());
+                log = null;
+            }
+            if(next == -1) {
+                break;
+            }
         }
     }
 
-    private void emitLogToElastic(String line, String buildname, long timestamp) throws IOException {
+    protected void emitLogToElastic(String line, String buildname, long timestamp) throws IOException {
         XContentBuilder builder = XContentFactory.jsonBuilder();
         builder.startObject();
         {
@@ -189,8 +230,9 @@ public class LogsIndexer {
         bulkProcessor.add(new IndexRequest("logs").source(builder));
     }
 
-    public static void main(String[] args) throws IOException, ArchiveException {
-        LogsIndexer li = new LogsIndexer();
+    public static void main(String[] args) throws IOException {
+        ParameterTool parameters = ParameterTool.fromArgs(args);
+        LogsIndexer li = new LogsIndexer(parameters);
         li.run();
     }
 }
