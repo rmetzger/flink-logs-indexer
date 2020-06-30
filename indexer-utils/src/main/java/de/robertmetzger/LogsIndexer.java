@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -66,7 +67,6 @@ public class LogsIndexer {
             @Override
             public void afterBulk(long executionId, BulkRequest request,
                                   BulkResponse response) {
-
             }
 
             @Override
@@ -90,10 +90,15 @@ public class LogsIndexer {
         this.bulkProcessor = builder.build();
     }
 
-    private void run() throws IOException {
+    private void run() throws IOException, InterruptedException {
         File dataDir = new File(parameters.get("data-dir", "data/"));
         // get all log files in the data dir
         File[] logFiles = dataDir.listFiles((dir, name) -> name.contains("logs"));
+        if(logFiles == null) {
+            LOG.warn("No logfiles found in " + dataDir.getAbsolutePath());
+            bulkProcessor.close();
+            return;
+        }
         // process them one after another
         for(File logFile: logFiles) {
             if(logFile.isDirectory()) {
@@ -128,7 +133,7 @@ public class LogsIndexer {
             Files.move(logFile, new File(parameters.get("done-data-dir", "done-data/") + logFile.getName()));
         }
         LOG.info("Done processing the files ...");
-        bulkProcessor.close();
+        bulkProcessor.awaitClose(10, TimeUnit.SECONDS);
     }
 
     /**
@@ -165,9 +170,8 @@ public class LogsIndexer {
         Instant logEventTime = tsInst;
         LOG.info("begin of day " + tsInst);
 
-        Pattern logTimestampPattern = Pattern.compile("ˆ([0-9:,]+) \\[.*");
+        Pattern logTimestampPattern = Pattern.compile("^([0-9:,]+) \\[.*");
         SimpleDateFormat timePattern = new SimpleDateFormat("HH:mm:ss,SSS");
-
 
         // we split the input stream on "\n[0-9]" (the number is included), so that we catch all log lines + exceptions.
         InputStreamReader is = new InputStreamReader(logStream);
@@ -185,7 +189,9 @@ public class LogsIndexer {
                     sb.setLength(0);
                     sb.append((char)next); // the number for the beginning of the next line
                 } else {
+                    // restore what we've consumed already
                     sb.append('\n');
+                    sb.append((char)next);
                 }
             } else if(next == -1) {
                 // end of stream
@@ -207,8 +213,6 @@ public class LogsIndexer {
                         LOG.debug("Error parsing date from log line '{}' ", log, e);
                     }
                 }
-
-                LOG.info("LOG = "  + log);
                 emitLogToElastic(log, buildname, logEventTime.toEpochMilli());
                 log = null;
             }
@@ -230,7 +234,7 @@ public class LogsIndexer {
         bulkProcessor.add(new IndexRequest("logs").source(builder));
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         ParameterTool parameters = ParameterTool.fromArgs(args);
         LogsIndexer li = new LogsIndexer(parameters);
         li.run();

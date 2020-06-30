@@ -93,6 +93,38 @@ public class LogsIndexerTest {
         Assert.assertTrue(indexer.getEmittedLogs().get(1).contains("12:52:27,908"));
     }
 
+    @Test
+    public void testMultilineLogs() throws IOException {
+        String input = "11:55:10,446 [                main] INFO  org.apache.flink.tests.util.TestUtilsTest                    [] - \n" +
+                "================================================================================\n" +
+                "Test copyDirectory(org.apache.flink.tests.util.TestUtilsTest) is running.\n" +
+                "--------------------------------------------------------------------------------\n" +
+                "11:55:10,462 [                main] INFO  org.apache.flink.tests.util.TestUtilsTest                    [] - \n" +
+                "--------------------------------------------------------------------------------\n" +
+                "Test copyDirectory(org.apache.flink.tests.util.TestUtilsTest) successfully run.\n" +
+                "================================================================================\n" +
+                "11:55:12,136 [                main] INFO  org.pache.flink.metrics.tests.MetricsAvailabilityITCase      [] - \n" +
+                "================================================================================\n" +
+                "Test testReporter(org.pache.flink.metrics.tests.MetricsAvailabilityITCase) is running.\n" +
+                "--------------------------------------------------------------------------------\n" +
+                "11:55:12,139 [                main] INFO  org.apache.flink.tests.util.flink.LocalStandaloneFlinkResource [] - Copying distribution to /tmp/junit1380611513318208940/junit3715900015174182410.\n" +
+                "11:55:14,826 [                main] INFO  org.apache.flink.configuration.GlobalConfiguration           [] - Loading configuration property: jobmanager.rpc.address, localhost\n" +
+                "11:55:14,826 [                main] INFO  org.apache.flink.configuration.GlobalConfiguration           [] - Loading configuration property: jobmanager.rpc.port, 6123\n" +
+                "11:55:14,826 [                main] INFO  org.apache.flink.configuration.GlobalConfiguration           [] - Loading configuration property: jobmanager.memory.process.size, 1600m\n" +
+                "11:55:14,826 [                main] INFO  org.apache.flink.configuration.GlobalConfiguration           [] - Loading configuration property: taskmanager.memory.process.size, 1728m\n" +
+                "11:55:14,827 [                main] INFO  org.apache.flink.configuration.GlobalConfiguration           [] - Loading configuration property: taskmanager.numberOfTaskSlots, 1";
+
+        TestLogsIndexer indexer = new TestLogsIndexer();
+        InputStream targetStream = new ByteArrayInputStream(input.getBytes());
+        indexer.parseLogfile(targetStream, "logs-ci-blinkplanner/20200629.4.tar.gz", "logs-ci-blinkplanner/20200629.4.tar.gz");
+        Assert.assertEquals(9, indexer.getEmittedLogs().size());
+       // MatcherAssert.assertThat(indexer.getEmittedLogs().get(0), containsString("Test copyDirectory(org.apache.flink.tests.util.TestUtilsTest) is running.") );
+        Assert.assertEquals("11:55:10,446 [                main] INFO  org.apache.flink.tests.util.TestUtilsTest                    [] - \n" +
+                "================================================================================\n" +
+                "Test copyDirectory(org.apache.flink.tests.util.TestUtilsTest) is running.\n" +
+                "--------------------------------------------------------------------------------", indexer.getEmittedLogs().get(0));
+    }
+
     private static class TestLogsIndexer extends LogsIndexer {
         public List<String> emittedLogs = new ArrayList<>();
         public TestLogsIndexer() {
