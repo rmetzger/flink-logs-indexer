@@ -27,6 +27,7 @@ public class LogsDownloader {
     private final static Logger LOG = LoggerFactory.getLogger(LogsDownloader.class);
 
     private final JsonUtils jsonUtils;
+    private final String DATA_DIR = "data/";
 
     public LogsDownloader() {
         jsonUtils = new JsonUtils();
@@ -34,7 +35,7 @@ public class LogsDownloader {
 
     // TODO: retrieve all builds, not just the first 1000
     private List<Integer> getBuildIDs() throws IOException {
-        ObjectNode buildsResultObject = jsonUtils.getJsonFromUrl("http://localhost:8000/builds-list-full.json", ObjectNode.class);
+        ObjectNode buildsResultObject = jsonUtils.getJsonFromUrl("https://dev.azure.com/apache-flink/apache-flink/_apis/build/builds?api-version=5.1", ObjectNode.class);
         JsonNode buildsArray = buildsResultObject.get("value");
         return StreamSupport.stream(buildsArray.spliterator(), false)
                 .map(node -> node.get("id").asInt())
@@ -97,7 +98,7 @@ public class LogsDownloader {
             LOG.info("Downloading " + download);
             FileUtils.copyURLToFile(
                     new URL(download.url),
-                    new File(download.name));
+                    new File(DATA_DIR + download.name));
         }
     }
 
