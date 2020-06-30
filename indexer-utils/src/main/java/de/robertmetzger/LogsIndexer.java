@@ -5,6 +5,9 @@ import org.apache.flink.api.java.utils.ParameterTool;
 
 import org.apache.flink.shaded.guava18.com.google.common.io.Files;
 
+import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.Meter;
+import com.codahale.metrics.MetricRegistry;
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
@@ -27,7 +30,6 @@ import org.elasticsearch.common.xcontent.XContentFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -37,7 +39,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,6 +52,10 @@ public class LogsIndexer {
     private final static Logger LOG = LoggerFactory.getLogger(LogsIndexer.class);
     private final BulkProcessor bulkProcessor;
     private final ParameterTool parameters;
+    private final MetricRegistry metrics = new MetricRegistry();
+    private final Meter metricsLogsIndexed = metrics.meter("logs-indexed");
+    private final Meter metricsFilesProcessed = metrics.meter("files-processed");
+
 
     public LogsIndexer(ParameterTool parameters) {
         this.parameters = parameters;
@@ -91,6 +96,12 @@ public class LogsIndexer {
     }
 
     private void run() throws IOException, InterruptedException {
+        ConsoleReporter metricsReporter = ConsoleReporter.forRegistry(metrics)
+                .convertRatesTo(TimeUnit.SECONDS)
+                .convertDurationsTo(TimeUnit.MILLISECONDS)
+                .build();
+        metricsReporter.start(30, TimeUnit.SECONDS);
+
         File dataDir = new File(parameters.get("data-dir", "data/"));
         // get all log files in the data dir
         File[] logFiles = dataDir.listFiles((dir, name) -> name.contains("logs"));
@@ -131,9 +142,11 @@ public class LogsIndexer {
             }
             // move to "done" directory
             Files.move(logFile, new File(parameters.get("done-data-dir", "done-data/") + logFile.getName()));
+            metricsFilesProcessed.mark();
         }
         LOG.info("Done processing the files ...");
         bulkProcessor.awaitClose(10, TimeUnit.SECONDS);
+        metricsReporter.close();
     }
 
     /**
@@ -231,6 +244,9 @@ public class LogsIndexer {
             builder.timeField("log-ts", timestamp);
         }
         builder.endObject();
+
+        metricsLogsIndexed.mark();
+
         bulkProcessor.add(new IndexRequest("logs").source(builder));
     }
 
