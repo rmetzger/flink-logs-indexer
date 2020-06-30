@@ -1,5 +1,7 @@
 package de.robertmetzger;
 
+import org.apache.flink.api.java.utils.ParameterTool;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.commons.io.FileUtils;
@@ -9,7 +11,12 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -27,24 +34,59 @@ public class LogsDownloader {
     private final static Logger LOG = LoggerFactory.getLogger(LogsDownloader.class);
 
     private final JsonUtils jsonUtils;
-    private final String DATA_DIR = "data/";
+    private final ParameterTool parameters;
+    private final String azureOrg;
 
-    public LogsDownloader() {
+
+    public LogsDownloader(ParameterTool pt) {
         jsonUtils = new JsonUtils();
+        this.parameters = pt;
+        this.azureOrg = parameters.get("azure-org", "apache-flink/apache-flink");
     }
 
-    // TODO: retrieve all builds, not just the first 1000
     private List<Integer> getBuildIDs() throws IOException {
-        ObjectNode buildsResultObject = jsonUtils.getJsonFromUrl("https://dev.azure.com/apache-flink/apache-flink/_apis/build/builds?api-version=5.1", ObjectNode.class);
-        JsonNode buildsArray = buildsResultObject.get("value");
-        return StreamSupport.stream(buildsArray.spliterator(), false)
-                .map(node -> node.get("id").asInt())
-               // .limit(5)
-                .collect(Collectors.toList());
+        List<Integer> buildIds = new ArrayList<>();
+        List<Integer> fetchResult;
+        String continuationToken = "";
+        do {
+            JsonUtils.JsonResult<ObjectNode> callResult =
+                    jsonUtils.getJsonFromUrl("https://dev.azure.com/" + azureOrg + "/_apis/build/builds?api-version=5.1&continuationToken="+continuationToken+"&$top=2500", ObjectNode.class);
+            // LOG.debug("res = " + callResult.result);
+            JsonNode buildsArray = callResult.result.get("value");
+            if(buildsArray == null) {
+                LOG.debug("Unexpected REST result " + callResult.result);
+                return Collections.emptyList();
+            }
+            int count = callResult.result.get("count").asInt();
+            continuationToken = callResult.responseHeaders.get("x-ms-continuationtoken");
+            LOG.debug("Fetch count {}. Continuation token {}", count, continuationToken);
+
+            LOG.info("size = " + buildsArray.size());
+            fetchResult = StreamSupport.stream(buildsArray.spliterator(), false)
+                    // only on master pushes
+                    .filter(node -> {
+                        JsonNode triggerInfo = node.get("triggerInfo");
+                        if(!triggerInfo.has("ci.triggerRepository")) {
+                            return false;
+                        }
+                        String repo = triggerInfo.get("ci.triggerRepository").asText();
+                        return repo.equals("flink-ci/flink-mirror") || repo.equals("flink-ci/flink");
+                    })
+                    .map(node -> node.get("id").asInt())
+                    .collect(Collectors.toList());
+            buildIds.addAll(fetchResult);
+            LOG.info("Fetched {} build IDs", fetchResult.size());
+            LOG.debug("fetched tokens: " + fetchResult);
+            if(continuationToken == null) {
+                break;
+            }
+        } while(fetchResult.size() > 0);
+        LOG.info("Finished fetching. Total number of IDs fetched {}", buildIds.size());
+        return buildIds;
     }
 
     private Stream<Download> getLogDownloadLinks(int buildID) throws IOException {
-        ObjectNode artifactsResultObject = jsonUtils.getJsonFromUrl("https://dev.azure.com/apache-flink/apache-flink/_apis/build/builds/" + buildID + "/artifacts?api-version=5.1", ObjectNode.class);
+        ObjectNode artifactsResultObject = jsonUtils.getJsonFromUrl("https://dev.azure.com/" + azureOrg + " /_apis/build/builds/" + buildID + "/artifacts?api-version=5.1", ObjectNode.class).result;
         JsonNode artifactsArray = artifactsResultObject.get("value");
         return StreamSupport.stream(artifactsArray.spliterator(), false)
                 .filter(artifact -> artifact.get("name").asText().startsWith("logs-"))
@@ -83,34 +125,45 @@ public class LogsDownloader {
         }
     }
 
-    private void run() throws IOException {
+    private void run() throws IOException, InterruptedException {
         LOG.info("Getting builds from Azure");
         // ObjectNode builds = jsonUtils.getObjectNodeFromUrl("https://dev.azure.com/apache-flink/apache-flink/_apis/build/builds?api-version=5.1");
         List<Integer> buildIDs = getBuildIDs();
-        System.out.println("ids = " + buildIDs);
+        LOG.info("ids = " + buildIDs);
 
+        System.exit(0);
+        LOG.info("Collecting download links for builds");
         List<Download> downloadLinks = buildIDs
                 .stream()
                 .flatMap(buildID -> emptyStreamOnException(() -> getLogDownloadLinks(buildID)))
                 .collect(Collectors.toList());
-        System.out.println("downloads : " + downloadLinks);
+
+        ExecutorService executorService = Executors.newFixedThreadPool(parameters.getInt("concurrent-downloads",4));
         for(Download download: downloadLinks) {
-            LOG.info("Downloading " + download);
-            File target = new File(DATA_DIR + download.name);
-            if(target.exists()) {
-                LOG.info("File {} exists already. Skipping download ...", target);
-                continue;
-            }
-            FileUtils.copyURLToFile(
-                    new URL(download.url),
-                    target);
+            executorService.submit( () -> {
+                try {
+                    LOG.info("Downloading " + download);
+                    File target = new File(parameters.get("data-dir", "data/") + download.name);
+                    if(target.exists()) {
+                        LOG.info("File {} exists already. Skipping download ...", target);
+                        return;
+                    }
+                    FileUtils.copyURLToFile(new URL(download.url), target);
+                } catch(Throwable t) {
+                    LOG.info("Exception while downloading", t);
+                }
+            });
         }
+        executorService.shutdown();
+        executorService.awaitTermination(10, TimeUnit.MINUTES);
     }
 
 
 
-    public static void main(String[] args) throws IOException {
-        LogsDownloader ld = new LogsDownloader();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        ParameterTool pt = ParameterTool.fromArgs(args);
+
+        LogsDownloader ld = new LogsDownloader(pt);
         ld.run();
     }
 }

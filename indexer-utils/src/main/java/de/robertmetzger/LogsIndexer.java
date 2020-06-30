@@ -157,6 +157,8 @@ public class LogsIndexer {
         Pattern logTimestampPattern = Pattern.compile("ˆ([0-9:,]+) \\[.*");
         SimpleDateFormat timePattern = new SimpleDateFormat("HH:mm:ss,SSS");
 
+
+        // TODO don't split on newline to keep exceptions
         BufferedReader br = new BufferedReader(new InputStreamReader(logStream));
         String line;
         while ((line = br.readLine()) != null) {
