@@ -39,7 +39,7 @@ public class LogsDownloader {
         JsonNode buildsArray = buildsResultObject.get("value");
         return StreamSupport.stream(buildsArray.spliterator(), false)
                 .map(node -> node.get("id").asInt())
-                .limit(5)
+               // .limit(5)
                 .collect(Collectors.toList());
     }
 
@@ -96,9 +96,14 @@ public class LogsDownloader {
         System.out.println("downloads : " + downloadLinks);
         for(Download download: downloadLinks) {
             LOG.info("Downloading " + download);
+            File target = new File(DATA_DIR + download.name);
+            if(target.exists()) {
+                LOG.info("File {} exists already. Skipping download ...", target);
+                continue;
+            }
             FileUtils.copyURLToFile(
                     new URL(download.url),
-                    new File(DATA_DIR + download.name));
+                    target);
         }
     }
 
