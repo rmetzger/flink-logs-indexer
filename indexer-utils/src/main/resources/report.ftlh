@@ -33,13 +33,38 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <#list aggTable as test>
                         <tr>
-                            <td>Kubernetes</td>
-                            <td>3214</td>
-                            <td>64</td>
-                            <td>145</td>
-                            <td>38</td>
+                            <td>${test.name}</td>
+                            <td>${test.runs}</td>
+                            <td>${test.avg}</td>
+                            <td>${test.max}</td>
+                            <td>${test.min}</td>
                         </tr>
+                        <tr>
+                            <td colspan="5">
+                                TODO: Hide me
+                                <div class="row text-left">
+                                    <div class="col-sm-6">
+                                        <b>Slow Tests</b>
+                                        <ul class="list-group">
+                                            <#list perTestStats[test.name].slowTests as stat>
+                                                <li class="list-group-item"><a href="${stat.url}">${stat.name}</a></li>
+                                            </#list>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <b>Last Executions</b>
+                                        <ul class="list-group">
+                                            <#list perTestStats[test.name].lastExecutions as stat>
+                                                <li class="list-group-item"><a href="${stat.url}">${stat.name}</a></li>
+                                            </#list>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </#list>
                         </tbody>
                     </table>
                 </div>
